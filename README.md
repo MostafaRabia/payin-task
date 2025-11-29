@@ -53,14 +53,6 @@ php artisan db:seed
 ```bash
 # Run all tests
 php artisan test
-
-# Run specific test suites
-php artisan test --filter=StressTest
-php artisan test --filter=ConcurrencyTest
-php artisan test --filter=CacheTest
-
-# Run with coverage
-php artisan test --coverage
 ```
 
 ## 📊 Stress Testing with k6
@@ -70,6 +62,9 @@ php artisan test --coverage
 # macOS: brew install k6
 # Linux: sudo apt install k6
 
+# Run the server first
+PHP_CLI_SERVER_WORKERS=4 php artisan serve --no-reload
+
 # Run stress test
 k6 run full_flow_test.js
 k6 run stress_test_50.js
@@ -77,7 +72,9 @@ k6 run stress_test_50.js
 
 To run `stress_test_50` use `php artisan db:seed`
 
-You will see that `10` valid responses of hold, because stock is limited to `10`, and no overselling occurs.
+You will see that `10` or `9` valid responses of hold, because stock is limited to `10`, and no overselling occurs.
+
+If it's `9` valid responses, this is because `full_flow_test` was successful
 
 ## 🏗️ Architecture & Design Decisions
 

@@ -55,7 +55,6 @@ export default function () {
     // Step 2: عشوائية الدفع (نجاح/فشل)
     // ====================================================
     const isSuccess = Math.random() < 0.8; // 80% هينجحوا، 20% هيفشلوا
-    const statusToSend = isSuccess ? 'success' : 'failed';
 
     // ====================================================
     // Step 3: السباق (Order vs Webhook)
@@ -72,7 +71,7 @@ export default function () {
         ['POST', `${BASE_URL}/payments/webhook`, JSON.stringify({
             idempotency_key: idempotencyKey,
             data: {
-                status: statusToSend,
+                status: 'success',
                 hold_id: holdId
             }
         }), {
