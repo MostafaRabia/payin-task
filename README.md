@@ -62,15 +62,16 @@ php artisan test
 # macOS: brew install k6
 # Linux: sudo apt install k6
 
-# Run the server first
+# Run the seed if not done
+php artisan db:seed
+
+# Run the server
 PHP_CLI_SERVER_WORKERS=4 php artisan serve --no-reload
 
 # Run stress test
 k6 run full_flow_test.js
 k6 run stress_test_50.js
 ```
-
-To run `stress_test_50` use `php artisan db:seed`
 
 You will see that `10` or `9` valid responses of hold, because stock is limited to `10`, and no overselling occurs.
 
